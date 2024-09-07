@@ -29,6 +29,7 @@ const typeDefs = /* GraphQL */`
     login(email: String!, password: String!): Auth
     saveBook(authors: [String], description: String, bookId: String, title: String ): User
     removeBook(bookId: String!): User
+  }
 `;
 
 module.exports = typeDefs;
