@@ -17,10 +17,7 @@ class AuthService {
     try {
       const decoded = jwtDecode(token);
       // Ensure the expiration field exists and is valid
-      if (decoded.exp && decoded.exp < Date.now() / 1000) {
-        return true;
-      }
-      return false;
+      return decoded.exp < Date.now() / 1000;
     } catch (err) {
       // In case of an error (e.g., invalid token), assume it is expired or invalid
       return true;
@@ -36,21 +33,15 @@ class AuthService {
     // Save user token to localStorage
     localStorage.setItem('id_token', idToken);
     // Redirect to home page
-    this.redirect('/');
+    window.location.assign('/');
   }
 
   logout() {
     // Clear user token and profile data from localStorage
     localStorage.removeItem('id_token');
-    // Redirect to home page
-    this.redirect('/');
-  }
-
-  // Helper method to handle redirection
-  redirect(url) {
-    window.location.href = url;
+    // this will reload the page and reset the state of the application
+    window.location.assign('/');
   }
 }
 
 export default new AuthService();
-
